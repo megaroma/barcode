@@ -11,11 +11,17 @@
 #include <dirent.h>
 #include <fcntl.h>
 #include <linux/input.h>
+#include <signal.h>
 #include "screen.h"
 
 #define VENDORID 0x05f9
 #define PRODUCTID 0x221c
 #define SCN_BCD_SZ 15
+
+void handler(int sig)
+{
+    printf(ANSI_COLOR_RESET);
+}
 
 
 
@@ -255,6 +261,7 @@ void send_http(const char *bar_code) {
 
 
 int main(int argc, char* argv[]) {
+    signal (SIGTERM, handler);
 	char bar_code[200];
 	clearScreen();
 	printf("Starting\n");
