@@ -186,14 +186,14 @@ void send_http(const char *bar_code) {
     /* create the socket */
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd < 0) { 
-    	printf("ERROR opening socket\n");
+    	errorScreen(bar_code,"ERROR opening socket\n");
     	return;
     }
 
     /* lookup the ip address */
     server = gethostbyname(host);
     if (server == NULL) {
-    	printf("ERROR, no such host\n");
+    	errorScreen(bar_code,"ERROR, no such host\n");
     	return;
     }
 
@@ -205,7 +205,7 @@ void send_http(const char *bar_code) {
 
     /* connect the socket */
     if (connect(sockfd,(struct sockaddr *)&serv_addr,sizeof(serv_addr)) < 0) {
-        printf("ERROR connecting\n");
+        errorScreen(bar_code,"ERROR connecting\n");
         return;
     }
 
@@ -215,7 +215,7 @@ void send_http(const char *bar_code) {
     do {
         bytes = write(sockfd,message+sent,total-sent);
         if (bytes < 0) {
-            printf("ERROR writing message to socket\n");
+            errorScreen(bar_code,"ERROR writing message to socket\n");
             return;
         }
         if (bytes == 0)
@@ -230,7 +230,7 @@ void send_http(const char *bar_code) {
     do {
         bytes = read(sockfd,response+received,total-received);
         if (bytes < 0){
-            printf("ERROR reading response from socket\n");
+            errorScreen(bar_code,"ERROR reading response from socket\n");
             return;
         }
         if (bytes == 0)
@@ -239,7 +239,7 @@ void send_http(const char *bar_code) {
     } while (received < total);
 
     if (received == total) {
-        printf("ERROR storing complete response from socket\n");
+        errorScreen(bar_code,"ERROR storing complete response from socket\n");
         return;
     }
 
@@ -249,12 +249,13 @@ void send_http(const char *bar_code) {
     response_body = strstr(response, "\r\n\r\n");
 
     if(strstr(response_body, ":2,") != NULL) {
-    	printf(ANSI_COLOR_RED     "Error:"     ANSI_COLOR_RESET "\n");
+        errorScreen(bar_code,response_body);
    	} else {
-   		printf(ANSI_COLOR_GREEN   "Ok:"   ANSI_COLOR_RESET "\n");
+   		successScreen(bar_code);
+        sleep(2);
    	}
 
-    printf("Response Body:\n%s\n",response_body);
+    //printf("Response Body:\n%s\n",response_body);
 
 
 }
@@ -281,10 +282,9 @@ int main(int argc, char* argv[]) {
 		sleep(1);
 		readyScreen();
 		snprintf(bar_code, sizeof bar_code,"%s", readScanner(NULL));
-		clearScreen();
-		printf("The code = %s\n", bar_code );
-		printf("Sending Http\n");
+        sendingScreen(bar_code);
 		send_http(bar_code);
+
 	}
 
 }
