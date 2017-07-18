@@ -21,6 +21,8 @@
 void handler(int sig)
 {
     printf(ANSI_COLOR_RESET);
+    printf("\nBye.\n");
+    exit(0);
 }
 
 
