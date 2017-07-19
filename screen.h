@@ -30,5 +30,6 @@ void readyScreen();
 void sendingScreen(const char *cart_id);
 void successScreen(const char *cart_id);
 void errorScreen(const char *cart_id,const char *reason);
+void testScreen(const char *cart_id,const char *reason);
 
 #endif 

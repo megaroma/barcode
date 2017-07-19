@@ -50,56 +50,73 @@ void readyScreen() {
 	struct winsize w;
 	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
 	clearScreen();
-	    printf(ANSI_COLOR_BLACK  );
+	printf(ANSI_COLOR_WHITE);
+	printf(ANSI_BGCOLOR_BLUE);
 
-printf(ANSI_BGCOLOR_CYAN);
 
-	printHeader(w.ws_col,"Status");
+	printf(ANSI_BGCOLOR_BLUE "╔═══[Status]══════════════════════════════════╗" ANSI_BGCOLOR_BLACK );printHeader(w.ws_col - 47,"Message");
+	printf(ANSI_BGCOLOR_BLUE "║                                             ║" ANSI_BGCOLOR_BLACK );printLine(w.ws_col-47," ");
+	printf(ANSI_BGCOLOR_BLUE "║        █████ █████ █████ ████  █   █        ║" ANSI_BGCOLOR_BLACK );printLine(w.ws_col-47," "); 
+	printf(ANSI_BGCOLOR_BLUE "║        █   █ █     █   █ █   █ █   █        ║" ANSI_BGCOLOR_BLACK );printLine(w.ws_col-47," ");
+	printf(ANSI_BGCOLOR_BLUE "║        █████ ████  █████ █   █ █████        ║" ANSI_BGCOLOR_BLACK );printLine(w.ws_col-47," ");
+	printf(ANSI_BGCOLOR_BLUE "║        █  █  █     █   █ █   █     █        ║" ANSI_BGCOLOR_BLACK );printLine(w.ws_col-47," ");
+	printf(ANSI_BGCOLOR_BLUE "║        █   █ █████ █   █ ████  █████        ║" ANSI_BGCOLOR_BLACK );printLine(w.ws_col-47," ");
+	printf(ANSI_BGCOLOR_BLUE "║                                             ║" ANSI_BGCOLOR_BLACK );printLine(w.ws_col-47," ");
+	printf(ANSI_BGCOLOR_BLUE "╚═════════════════════════════════════════════╝" ANSI_BGCOLOR_BLACK );printFooter(w.ws_col-47);
+
+
+
+	printHeader(w.ws_col,"Action");
 
 
     printLine(w.ws_col," ");
+    printLine(w.ws_col," Begin Scan");
     printLine(w.ws_col," ");
+    printLine(w.ws_col," ");
+    printLine(w.ws_col," ");
+    printLine(w.ws_col," ");
+
+	printFooter(w.ws_col);
 
-    printLine(w.ws_col,"Scanner");
-    printLine(w.ws_col,"Ready");
-
-    printLine(w.ws_col," ");
-    printLine(w.ws_col," ");
-    printLine(w.ws_col," ");
-    printFooter(w.ws_col);
-printf(ANSI_COLOR_RESET);
-
+	printf(ANSI_COLOR_RESET);
 }
 
 void sendingScreen(const char *cart_id) {
-
 	int i;
 	struct winsize w;
 	char buff[200];
 
 	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
 	clearScreen();
-	    printf(ANSI_COLOR_BLACK  );
+	printf(ANSI_COLOR_WHITE);
+	printf(ANSI_BGCOLOR_BLUE);
+	snprintf(buff, sizeof buff,"  Sending Cart ID - %s", cart_id);
 
-printf(ANSI_BGCOLOR_CYAN);
+	printf(ANSI_BGCOLOR_BLUE "╔═══[Status]══════════════════════════════════╗" ANSI_BGCOLOR_BLACK );printHeader(w.ws_col - 47,"Message");
+	printf(ANSI_BGCOLOR_BLUE "║                                             ║" ANSI_BGCOLOR_BLACK );printLine(w.ws_col-47," ");
+	printf(ANSI_BGCOLOR_BLUE "║        █████ █████ █████ ████  █   █        ║" ANSI_BGCOLOR_BLACK );printLine(w.ws_col-47,buff); 
+	printf(ANSI_BGCOLOR_BLUE "║        █   █ █     █   █ █   █ █   █        ║" ANSI_BGCOLOR_BLACK );printLine(w.ws_col-47," ");
+	printf(ANSI_BGCOLOR_BLUE "║        █████ ████  █████ █   █ █████        ║" ANSI_BGCOLOR_BLACK );printLine(w.ws_col-47," ");
+	printf(ANSI_BGCOLOR_BLUE "║        █  █  █     █   █ █   █     █        ║" ANSI_BGCOLOR_BLACK );printLine(w.ws_col-47," ");
+	printf(ANSI_BGCOLOR_BLUE "║        █   █ █████ █   █ ████  █████        ║" ANSI_BGCOLOR_BLACK );printLine(w.ws_col-47," ");
+	printf(ANSI_BGCOLOR_BLUE "║                                             ║" ANSI_BGCOLOR_BLACK );printLine(w.ws_col-47," ");
+	printf(ANSI_BGCOLOR_BLUE "╚═════════════════════════════════════════════╝" ANSI_BGCOLOR_BLACK );printFooter(w.ws_col-47);
 
-	printHeader(w.ws_col,"Status");
+
+
+	printHeader(w.ws_col,"Action");
 
 
     printLine(w.ws_col," ");
-    printLine(w.ws_col," ");
-
-    printLine(w.ws_col,"Scanner");
-
-    snprintf(buff, sizeof buff,"Sending Cart ID - %s", cart_id);
-
-    printLine(w.ws_col,buff);
-
+    printLine(w.ws_col," ...");
     printLine(w.ws_col," ");
     printLine(w.ws_col," ");
     printLine(w.ws_col," ");
-    printFooter(w.ws_col);
-printf(ANSI_COLOR_RESET);
+    printLine(w.ws_col," ");
+
+	printFooter(w.ws_col);
+
+	printf(ANSI_COLOR_RESET);
 
 }
 
@@ -112,28 +129,35 @@ void successScreen(const char *cart_id) {
 
 	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
 	clearScreen();
-	    printf(ANSI_COLOR_BLACK  );
+	printf(ANSI_COLOR_BLACK);
+	printf(ANSI_BGCOLOR_GREEN);
+	snprintf(buff, sizeof buff," Cart ID - %s", cart_id);
 
-printf(ANSI_BGCOLOR_GREEN);
+	printf(ANSI_COLOR_BLACK ANSI_BGCOLOR_GREEN "╔═══[Status]══════════════════════════════════╗" ANSI_COLOR_WHITE ANSI_BGCOLOR_BLACK );printHeader(w.ws_col - 47,"Message");
+	printf(ANSI_COLOR_BLACK ANSI_BGCOLOR_GREEN "║                                             ║" ANSI_COLOR_WHITE ANSI_BGCOLOR_BLACK );printLine(w.ws_col-47," ");
+	printf(ANSI_COLOR_BLACK ANSI_BGCOLOR_GREEN "║  █████ █   █ █████ █████ █████ █████ █████  ║" ANSI_COLOR_WHITE ANSI_BGCOLOR_BLACK );printLine(w.ws_col-47,buff); 
+	printf(ANSI_COLOR_BLACK ANSI_BGCOLOR_GREEN "║  █     █   █ █     █     █     █     █      ║" ANSI_COLOR_WHITE ANSI_BGCOLOR_BLACK );printLine(w.ws_col-47," ");
+	printf(ANSI_COLOR_BLACK ANSI_BGCOLOR_GREEN "║  █████ █   █ █     █     ████  █████ █████  ║" ANSI_COLOR_WHITE ANSI_BGCOLOR_BLACK );printLine(w.ws_col-47," ");
+	printf(ANSI_COLOR_BLACK ANSI_BGCOLOR_GREEN "║      █ █   █ █     █     █         █     █  ║" ANSI_COLOR_WHITE ANSI_BGCOLOR_BLACK );printLine(w.ws_col-47," ");
+	printf(ANSI_COLOR_BLACK ANSI_BGCOLOR_GREEN "║  █████ █████ █████ █████ █████ █████ █████  ║" ANSI_COLOR_WHITE ANSI_BGCOLOR_BLACK );printLine(w.ws_col-47," ");
+	printf(ANSI_COLOR_BLACK ANSI_BGCOLOR_GREEN "║                                             ║" ANSI_COLOR_WHITE ANSI_BGCOLOR_BLACK );printLine(w.ws_col-47," ");
+	printf(ANSI_COLOR_BLACK ANSI_BGCOLOR_GREEN "╚═════════════════════════════════════════════╝" ANSI_COLOR_WHITE ANSI_BGCOLOR_BLACK );printFooter(w.ws_col-47);
 
-	printHeader(w.ws_col,"Status");
+
+
+	printHeader(w.ws_col,"Action");
 
 
     printLine(w.ws_col," ");
     printLine(w.ws_col," ");
-
-    printLine(w.ws_col,"Scan");
-    printLine(w.ws_col,"Successful");
-
-    snprintf(buff, sizeof buff,"Cart ID - %s", cart_id);
-
-    printLine(w.ws_col,buff);
-
+    printLine(w.ws_col," ");
+    printLine(w.ws_col," ");
     printLine(w.ws_col," ");
     printLine(w.ws_col," ");
 
-    printFooter(w.ws_col);
-printf(ANSI_COLOR_RESET);
+	printFooter(w.ws_col);
+
+	printf(ANSI_COLOR_RESET);
 
 }
 
@@ -146,34 +170,38 @@ void errorScreen(const char *cart_id,const char *reason) {
 
 	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
 	clearScreen();
-	    printf(ANSI_COLOR_BLACK  );
+	printf(ANSI_COLOR_BLACK);
+	printf(ANSI_BGCOLOR_RED);
+	snprintf(buff, sizeof buff," Cart ID - %s", cart_id);
 
-printf(ANSI_BGCOLOR_RED);
+	printf(ANSI_COLOR_BLACK ANSI_BGCOLOR_RED "╔═══[Status]══════════════════════════════════╗" ANSI_COLOR_WHITE ANSI_BGCOLOR_BLACK );printHeader(w.ws_col - 47,"Message");
+	printf(ANSI_COLOR_BLACK ANSI_BGCOLOR_RED "║                                             ║" ANSI_COLOR_WHITE ANSI_BGCOLOR_BLACK );printLine(w.ws_col-47," ");
+	printf(ANSI_COLOR_BLACK ANSI_BGCOLOR_RED "║     █████ █████ █████ █     █████ ████      ║" ANSI_COLOR_WHITE ANSI_BGCOLOR_BLACK );printLine(w.ws_col-47,buff); 
+	printf(ANSI_COLOR_BLACK ANSI_BGCOLOR_RED "║     █     █   █   █   █     █     █   █     ║" ANSI_COLOR_WHITE ANSI_BGCOLOR_BLACK );printLine(w.ws_col-47,reason + 4);
+	printf(ANSI_COLOR_BLACK ANSI_BGCOLOR_RED "║     ████  █████   █   █     ████  █   █     ║" ANSI_COLOR_WHITE ANSI_BGCOLOR_BLACK );printLine(w.ws_col-47," ");
+	printf(ANSI_COLOR_BLACK ANSI_BGCOLOR_RED "║     █     █   █   █   █     █     █   █     ║" ANSI_COLOR_WHITE ANSI_BGCOLOR_BLACK );printLine(w.ws_col-47," ");
+	printf(ANSI_COLOR_BLACK ANSI_BGCOLOR_RED "║     █     █   █ █████ █████ █████ ████      ║" ANSI_COLOR_WHITE ANSI_BGCOLOR_BLACK );printLine(w.ws_col-47," ");
+	printf(ANSI_COLOR_BLACK ANSI_BGCOLOR_RED "║                                             ║" ANSI_COLOR_WHITE ANSI_BGCOLOR_BLACK );printLine(w.ws_col-47," ");
+	printf(ANSI_COLOR_BLACK ANSI_BGCOLOR_RED "╚═════════════════════════════════════════════╝" ANSI_COLOR_WHITE ANSI_BGCOLOR_BLACK );printFooter(w.ws_col-47);
 
-	printHeader(w.ws_col,"Status");
+
+
+	printHeader(w.ws_col,"Action");
 
 
     printLine(w.ws_col," ");
+    printLine(w.ws_col," Press ENTER key to Continue");
+    printLine(w.ws_col," ");
+    printLine(w.ws_col," ");
+    printLine(w.ws_col," ");
     printLine(w.ws_col," ");
 
-    printLine(w.ws_col,"Scan");
-    printLine(w.ws_col,"Failed");
+	printFooter(w.ws_col);
 
-    snprintf(buff, sizeof buff,"Cart ID - %s", cart_id);
-
-    printLine(w.ws_col,buff);
-
-    printLine(w.ws_col,reason);
-
-    printLine(w.ws_col," ");
-
-    printf("╚══[Press ENTER key to Continue]");
-    for(i=0;i< w.ws_col - 33;i++){
-        printf("═");
-    }
-    printf("╝");
-    putchar('\n');
-printf(ANSI_COLOR_RESET);
-
+	printf(ANSI_COLOR_RESET);
 	getchar(); 
+}
+
+void testScreen(const char *cart_id,const char *reason) {
+
 }

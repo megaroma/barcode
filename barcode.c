@@ -265,7 +265,6 @@ void send_http(const char *bar_code) {
 
 int main(int argc, char* argv[]) {
 
-
     signal (SIGTERM, handler);
     signal (SIGINT, handler);
 	char bar_code[200];
