@@ -29,7 +29,7 @@ void handler(int sig)
 
 
 int scan_fd = -1;
-
+long last_scan_time = 0;
 
 
 int initScanner(){
@@ -250,9 +250,11 @@ void send_http(const char *bar_code) {
 
     if(strstr(response_body, ":2,") != NULL) {
         errorScreen(bar_code,response_body);
+        last_scan_time = getMicrotime();
    	} else {
    		successScreen(bar_code);
         sleep(2);
+        last_scan_time = getMicrotime();
    	}
 
     //printf("Response Body:\n%s\n",response_body);
@@ -265,8 +267,7 @@ void send_http(const char *bar_code) {
 
 int main(int argc, char* argv[]) {
 
-
-
+    long cur_scan_time;
 
     signal (SIGTERM, handler);
     signal (SIGINT, handler);
@@ -279,22 +280,15 @@ int main(int argc, char* argv[]) {
 		exit(1);
 	}
 
-    if(read(scan_fd, bar_code, 200) > 0 ) {
-        printf ("Scanned\n");
-        exit(0);
-    } else {
-        printf("nothing\n");
-        exit(0);
-    }
-
-
 
 	while (1) {
-		sleep(1);
 		readyScreen();
 		snprintf(bar_code, sizeof bar_code,"%s", readScanner(NULL));
-        sendingScreen(bar_code);
-		send_http(bar_code);
+        cur_scan_time = getMicrotime();
+        if((cur_scan_time - last_scan_time) > 500000) {
+            sendingScreen(bar_code);
+		    send_http(bar_code);
+        }
 
 	}
 

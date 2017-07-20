@@ -4,7 +4,14 @@
 #include <string.h>
 #include <stdlib.h>
 #include <termios.h>
+#include <sys/time.h>
 #include "screen.h" 
+
+long getMicrotime(){
+	struct timeval currentTime;
+	gettimeofday(&currentTime, NULL);
+	return currentTime.tv_sec * (int)1e6 + currentTime.tv_usec;
+}
 
 int mygetch ( void ) 
 {
