@@ -130,32 +130,32 @@ return ret;
 
 
 char* readScanner(int *loopcond){
-static char barcode[SCN_BCD_SZ];
-char code[SCN_BCD_SZ];
-int i=0;
-struct input_event ev;
+    static char barcode[SCN_BCD_SZ];
+    char code[SCN_BCD_SZ];
+    int i=0;
+    struct input_event ev;
 
-while( loopcond==NULL?1:*loopcond ){
-read(scan_fd,&ev,sizeof(struct input_event));
-if( ev.type==1 && ev.value==1 ){
-if( ev.code==28 ){ //carriage return
-printf("Carriage Return Read \n");
-code[i] = 0;
-strcpy(barcode,code);
-return barcode;
-}
-else{
-if( ev.code!=0 ){
-code[i++] = keycodelist(ev.code);
-//printf("Char: %i-%i \n", keycodelist(ev.code), ev.code);
-if( i==SCN_BCD_SZ-1 ){ 
-	printf("Barcode buffer full\n"); 
-	return NULL;}
-}
-}
-}
-}
-return NULL;
+    while( loopcond==NULL?1:*loopcond ){
+        read(scan_fd,&ev,sizeof(struct input_event));
+        if( ev.type==1 && ev.value==1 ){
+            if( ev.code==28 ){ //carriage return
+                printf("Carriage Return Read \n");
+                code[i] = 0;
+                strcpy(barcode,code);
+                return barcode;
+            } else{
+                if( ev.code!=0 ){
+                    code[i++] = keycodelist(ev.code);
+                    //printf("Char: %i-%i \n", keycodelist(ev.code), ev.code);
+                    if( i==SCN_BCD_SZ-1 ){ 
+	                   printf("Barcode buffer full\n"); 
+	                   return NULL;
+                    }
+                }
+            }
+        }
+    }
+    return NULL;
 }
 
 
@@ -265,6 +265,9 @@ void send_http(const char *bar_code) {
 
 int main(int argc, char* argv[]) {
 
+
+
+
     signal (SIGTERM, handler);
     signal (SIGINT, handler);
 	char bar_code[200];
@@ -275,6 +278,15 @@ int main(int argc, char* argv[]) {
 	if(initScanner() != 1) {
 		exit(1);
 	}
+
+    if(read(scan_fd, bar_code, 200) > 0 ) {
+        printf ("Scanned\n");
+        exit(0);
+    } else {
+        printf("nothing\n");
+        exit(0);
+    }
+
 
 
 	while (1) {
