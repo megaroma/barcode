@@ -68,6 +68,20 @@ void printLine(int w, const char *text) {
     putchar('\n');	
 }
 
+void printMessageLine(int w, const char *reason) {
+	char *message;
+	int total,i;
+	message = strstr(reason,"\"message\":");
+	total = strlen(message) - 2 - 11;
+    printf("║  ");
+    printf("%.*s",total, message + 11);
+    for(i=0;i< w -4 - total;i++){
+        printf(" ");
+    }
+    printf("║");
+    putchar('\n');	
+}
+
 void printCenterText(int w,int l, const char *text) {
 	int space,i;
     printf("║");
@@ -258,11 +272,12 @@ void errorScreen(const char *cart_id,const char *reason) {
 	struct winsize w;
 	char buff[200];
 
+
 	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
 	clearScreen();
 	printf(ANSI_COLOR_BLACK);
 	printf(ANSI_BGCOLOR_RED);
-	snprintf(buff, sizeof buff," Cart ID - %s", cart_id);
+	snprintf(buff, sizeof buff,"Cart ID - %s", cart_id);
 
 	printHeader(w.ws_col,"Status");
 	printLine(w.ws_col," ");
@@ -286,7 +301,7 @@ void errorScreen(const char *cart_id,const char *reason) {
 	printHeader(w.ws_col,"Message");
 	printLine(w.ws_col," ");
 	printLine(w.ws_col,buff); 
-	printLine(w.ws_col,reason + 4);
+	printMessageLine(w.ws_col,reason);
 	printLine(w.ws_col," ");
 	printLine(w.ws_col," ");
 	printLine(w.ws_col," ");

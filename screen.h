@@ -33,5 +33,6 @@ void errorScreen(const char *cart_id,const char *reason);
 void printCenterText(int w,int l, const char *text);
 void testScreen(const char *cart_id,const char *reason);
 int mygetch ( void );
+void printMessageLine(int w, const char *text);
 long getMicrotime();
 #endif 

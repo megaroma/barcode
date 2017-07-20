@@ -264,8 +264,8 @@ void send_http(const char *bar_code) {
 
 
 
-
 int main(int argc, char* argv[]) {
+
 
     long cur_scan_time;
 
