@@ -59,7 +59,7 @@ int initScanner(){
         				printf("scanner attached to %s\n",path);
       				} else{
                         if(DEBUG_OUT) {
-                            printf("It is not a scanner %s:%s\n",id.vendor, id.product);
+                            printf("It is not a scanner %d:%d\n",id.vendor, id.product);
                         }
         				close(scan_fd);
         				scan_fd = -1;
