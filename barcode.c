@@ -69,7 +69,11 @@ int initScanner(){
     			fprintf(stderr,"Error opening %s",path);
     			perror("");
 			}
-		}
+		} else {
+            if(DEBUG_OUT) {
+                printf("It is not a input %s\n", path);
+            }
+        }
 		free(files[count--]);
 	}
 	free(files);
