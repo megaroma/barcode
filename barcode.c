@@ -12,6 +12,7 @@
 #include <fcntl.h>
 #include <linux/input.h>
 #include <signal.h>
+#include <stdbool.h>
 #include "screen.h"
 
 #define DEBUG_OUT true
