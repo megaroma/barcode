@@ -71,6 +71,7 @@ int initScanner(){
 			}
 		} else {
             if(DEBUG_OUT) {
+                sprintf(path,"/dev/input/%s",files[count]->d_name);
                 printf("It is not a input %s\n", path);
             }
         }
