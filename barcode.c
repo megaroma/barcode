@@ -42,8 +42,14 @@ int initScanner(){
 	struct input_id id;
 
 	count = scandir("/dev/input", &files, NULL, alphasort);
+    if(DEBUG_OUT) {
+        printf("found  %d devices\n", count );
+    }
 	while( count>0 ){
 		count--;
+        if(DEBUG_OUT) {
+            printf("Step: %d\n", count );
+        }
 		if( scan_fd==-1 && strncmp(files[count]->d_name,"event",5)==0 ){
   			sprintf(path,"/dev/input/%s",files[count]->d_name);
             if(DEBUG_OUT) {
@@ -75,7 +81,7 @@ int initScanner(){
                 printf("It is not a input %s\n", path);
             }
         }
-		free(files[count--]);
+		free(files[count]);
 	}
 	free(files);
 
