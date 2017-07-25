@@ -14,6 +14,8 @@
 #include <signal.h>
 #include "screen.h"
 
+#define DEBUG_OUT true
+
 #define VENDORID 0x05f9
 #define PRODUCTID 0x221c
 #define SCN_BCD_SZ 15
@@ -43,6 +45,9 @@ int initScanner(){
 		count--;
 		if( scan_fd==-1 && strncmp(files[count]->d_name,"event",5)==0 ){
   			sprintf(path,"/dev/input/%s",files[count]->d_name);
+            if(DEBUG_OUT) {
+                printf("Checking %s \n",path);
+            }
   			scan_fd = open(path,O_RDONLY);
   			if( scan_fd>=0 ){
     			if( ioctl(scan_fd,EVIOCGID,(void *)&id)<0 ) {
@@ -52,6 +57,9 @@ int initScanner(){
       				if( id.vendor==VENDORID && id.product==PRODUCTID ) {
         				printf("scanner attached to %s\n",path);
       				} else{
+                        if(DEBUG_OUT) {
+                            printf("It is not a scanner %s:%s\n",id.vendor, id.product);
+                        }
         				close(scan_fd);
         				scan_fd = -1;
       				}
