@@ -324,6 +324,7 @@ void errorScreen(const char *cart_id,const char *reason) {
 
 	printf(ANSI_COLOR_RESET);
 	//getchar();
+	system("paplay sound.wav");
 	mygetch(); 
 }
 
