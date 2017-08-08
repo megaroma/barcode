@@ -271,7 +271,7 @@ void errorScreen(const char *cart_id,const char *reason) {
 	int i;
 	struct winsize w;
 	char buff[200];
-
+	long timestamp;
 
 	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
 	clearScreen();
@@ -325,7 +325,10 @@ void errorScreen(const char *cart_id,const char *reason) {
 	printf(ANSI_COLOR_RESET);
 	//getchar();
 	system("aplay sound.wav");
-	mygetch(); 
+	timestamp = getMicrotime();
+	while((getMicrotime() - timestamp) < 500000 ) {
+		mygetch();
+	} 
 }
 
 void testScreen(const char *cart_id,const char *reason) {
